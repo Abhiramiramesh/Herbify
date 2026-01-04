@@ -65,17 +65,28 @@
                         
                         <a href="{% url 'viewproducts' %}" class="nav-item nav-link mx-3">view products</a>
                         <a href="{% url 'vieworders' %}" class="nav-item nav-link mx-3">view orders</a>
+                        <a href="{% url 'viewfarmers' %}" class="nav-item nav-link mx-3">view farmers</a>
+                        <a href="{% url 'addclass' %}" class="nav-item nav-link mx-3">Add class</a>
+                        <a href="{% url 'viewclass' %}" class="nav-item nav-link mx-3">view class</a>
                         
                         <a href="{% url 'viewdetails' %}" class="nav-item nav-link mx-3">view details</a>
                         <a href="{% url 'logout' %}" class="nav-item nav-link mx-3">logout</a>
-                        {% elif request.user.is_authenticated %}
+                        {% elif request.user.role == 'customer' %}
                         <a href="{% url 'home' %}" class="nav-item nav-link mx-3">Home</a>
                         <a href="{% url 'herbs' %}" class="nav-item nav-link mx-3">Herbs and Plants</a>
                         <a href="{% url 'marketplace' %}" class="nav-item nav-link mx-3">marketplace</a>
                         <a href="{% url 'cart' %}" class="nav-item nav-link mx-3">cart</a>
+                        <a href="{% url 'cart2' %}" class="nav-item nav-link mx-3">Machine cart</a>
+                        <a href="{% url 'viewmachines2' %}" class="nav-item nav-link mx-3">view machines</a>
                         <a href="{% url 'paymenthistory' %}" class="nav-item nav-link mx-3">payment history</a>
+                        <a href="{% url 'tracking' %}" class="nav-item nav-link mx-3">tracking page</a>
                         <a href="{% url 'logout' %}" class="nav-item nav-link mx-3">logout</a>
-                        
+                        {% elif request.user.role == 'farmer' %}
+                        <a href="{% url 'home' %}" class="nav-item nav-link mx-3">Home</a>
+                        <a href="{% url 'vieworders' %}" class="nav-item nav-link mx-3">view orders</a>
+                        <a href="{% url 'tutorials' %}" class="nav-item nav-link mx-3">Tutorials</a>
+                        <a href="{% url 'viewmachines' %}" class="nav-item nav-link mx-3">view machines</a>
+                        <a href="{% url 'logout' %}" class="nav-item nav-link mx-3">logout</a>
                         {% else %}
                         <a href="{% url 'home' %}" class="nav-item nav-link mx-3">Home</a>
                         <a href="{% url 'register' %}" class="nav-item nav-link mx-3">Register</a>

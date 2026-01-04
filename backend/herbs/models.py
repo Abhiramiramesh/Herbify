@@ -63,6 +63,15 @@ class Product(models.Model):
         return self.name
     
 
+class Product2(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='profile/')  # requires MEDIA setup
+
+    def __str__(self):
+        return self.name
+    
+
 class Productorder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -98,6 +107,19 @@ class Cartitem(models.Model):
         return f"{self.product.name} ({self.quantity})"
     
 
+class Cartitem2(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Each cart is tied to a user
+    product = models.ForeignKey(Product2, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)  # How many of this product
+
+    # Method to calculate total price for this item
+    def total_price(self):
+        return self.product.price * self.quantity
+
+    def __str__(self):
+        return f"{self.product.name} ({self.quantity})"
+    
+
 
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -110,3 +132,23 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment by {self.user.username} of ₹{self.amount}"
+    
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Processing', 'Processing'),
+        ('Shipped', 'Shipped'),
+        ('Delivered', 'Delivered'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.CharField(max_length=200)
+    quantity = models.PositiveIntegerField(default=1)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    order_date = models.DateTimeField(auto_now_add=True)
+
+
+class Tutorial(models.Model):
+    title=models.CharField(max_length=200)
+    video = models.FileField(upload_to='videos/', null=True, blank=True)
