@@ -35,3 +35,10 @@ Herbify is also an e-commerce platform to buy and sell medicinal and herbal plan
 - View Tracking
 - View Machines
 - View Booking History
+
+  ## How to Run
+1. Clone the repository: `git clone https://github.com/Abhiramiramesh/Herbify.git`
+2. Navigate to project directory
+3. Install requirements: `pip install -r requirements.txt`
+4. Run Django server: `python manage.py runserver`
+5. Open browser at `http://127.0.0.1:8000/`
